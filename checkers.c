@@ -1,5 +1,4 @@
 #include "so_long.h"
-#include <stdio.h>
 
 void bercheck (char *mapname)
 {
@@ -7,14 +6,9 @@ void bercheck (char *mapname)
     i = 0;
     i = ft_strlen(mapname);
     if (i <= 4)
-    {
-        write(1, "Error\n", 6);
-        exit(1);
-    }
+        exitor();
     else
-    {
         is_ber(mapname, i - 1);
-    }
 }
 
 void is_ber(char *mapname, int end)
@@ -28,10 +22,6 @@ void is_ber(char *mapname, int end)
     while (*mapend++ && *ber++)
     {
         if (*mapend != *ber)
-        {
-            write(1, "Error\n", 6);
-            exit(1);
-            //asds
-        }
+            exitor();
     }
 }

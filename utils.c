@@ -9,3 +9,9 @@ int ft_strlen (char *c)
        i++;
     return(i);
 }
+
+void exitor ()
+{
+    write(1, "Error\n", 6);
+    exit(1);
+}

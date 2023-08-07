@@ -12,7 +12,10 @@ typedef struct s_map
 }t_map;
 
 int ft_strlen (char *c);
+void exitor();
+
 void bercheck (char *mapname);
 void is_ber(char *mapname, int end);
+
 
 #endif
