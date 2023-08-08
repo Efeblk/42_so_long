@@ -1,7 +1,7 @@
 
 #include "so_long.h"
 
-int ft_strlen (char *c)
+int ft_strlen1 (char *c)
 {
     int i;
     i = 0;

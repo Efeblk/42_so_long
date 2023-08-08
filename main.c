@@ -6,6 +6,5 @@ int main(int argc, char **argv)
     {
         bercheck(argv[1]);
     }
-    
     return 0;
 }

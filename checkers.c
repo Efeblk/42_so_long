@@ -4,7 +4,7 @@ void bercheck (char *mapname)
 {
     int i;
     i = 0;
-    i = ft_strlen(mapname);
+    i = ft_strlen1(mapname);
     if (i <= 4)
         exitor();
     else

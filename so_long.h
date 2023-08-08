@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+# include "gnl/get_next_line.h"
 typedef struct s_map
 {
     char **map;
@@ -11,7 +12,7 @@ typedef struct s_map
     int height;
 }t_map;
 
-int ft_strlen (char *c);
+int ft_strlen1 (char *c);
 void exitor();
 
 void bercheck (char *mapname);
