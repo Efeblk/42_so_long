@@ -4,8 +4,7 @@
 static int charvalid(char c)
 {
     char *valid;
-    valid = "01CEP";
-    printf("%c", c);
+    valid = "01CEP\n";
     while (*valid)
     {
         if (*valid == c)
@@ -28,9 +27,20 @@ void readmap(char *mapname)
 {
     int fdmap;
     char *mapline;
+    int mapwidth;
 
+    mapline = "tmp";
     fdmap = open(mapname, O_RDONLY);
-    mapline = get_next_line(fdmap);
-    checkline(mapline);
+    while (mapline != NULL)
+    {
+        mapline = get_next_line(fdmap);
+        if (mapline == NULL)
+        {
+            break;
+        }
+        checkline(mapline);
+        mapwidth = ft_strlen1(mapline);
+        printf("\n%i", mapwidth);
+    }
 }
 

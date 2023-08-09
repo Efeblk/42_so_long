@@ -5,7 +5,7 @@ int ft_strlen1 (char *c)
 {
     int i;
     i = 0;
-    while (c[i])
+    while (c[i] && c[i] != '\n')
        i++;
     return(i);
 }
