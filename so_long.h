@@ -3,6 +3,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 
 # include "gnl/get_next_line.h"
 # include "minilibx/mlx.h"
@@ -19,5 +20,6 @@ void exitor();
 void bercheck (char *mapname);
 void is_ber(char *mapname, int end);
 
+void readmap(char *mapname);
 
 #endif
