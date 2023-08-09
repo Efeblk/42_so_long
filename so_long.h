@@ -5,6 +5,7 @@
 # include <stdlib.h>
 
 # include "gnl/get_next_line.h"
+# include "minilibx/mlx.h"
 typedef struct s_map
 {
     char **map;

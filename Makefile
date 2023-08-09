@@ -4,18 +4,21 @@ OBJ = $(SRC:.c=.o)
 
 CC = gcc
 RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror -I$(GNL)/get_next_line.h
+CFLAGS = -Wall -Wextra -Werror -I$(GNL)/get_next_line.h -I$(MINILIBX)/mlx.h
 GNL = gnl
+MINILIBX = minilibx
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -s -C $(GNL)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(GNL)/libget_next_line.a
+	@make -s -C $(MINILIBX)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(GNL)/libget_next_line.a $(MINILIBX)/libmlx.a
 
 clean:
 	@$(RM) $(OBJ)
 	@make clean -s -C $(GNL)
+	@make clean -s -C $(MINILIBX)
 
 fclean: clean
 	@$(RM) $(NAME)

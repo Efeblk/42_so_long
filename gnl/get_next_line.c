@@ -12,7 +12,6 @@
 
 #include "get_next_line.h"
 
-// join and free
 char	*ft_free(char *buffer, char *buf)
 {
 	char	*temp;
@@ -22,7 +21,6 @@ char	*ft_free(char *buffer, char *buf)
 	return (temp);
 }
 
-// delete line find
 char	*ft_next(char *buffer)
 {
 	int		i;
