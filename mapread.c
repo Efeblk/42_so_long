@@ -56,9 +56,11 @@ void readmap(char *mapname)
     int fdmap;
     char *mapline;
     int firstlinebool;
+    char *tmp_map;
 
     firstlinebool = 1;
     mapline = "tmp";
+    tmp_map = ft_calloc(sizeof(char) ,99);
     fdmap = open(mapname, O_RDONLY);
     while (mapline != NULL)
     {
@@ -68,7 +70,9 @@ void readmap(char *mapname)
 
         firstlinecheck(firstlinebool, mapline);
         firstlinebool = 0;
-        checkline(mapline);     
+        checkline(mapline);
+        printf("%s \n", tmp_map);
+        tmp_map = ft_strjoin(tmp_map, mapline);
     }
 }
 
