@@ -22,5 +22,6 @@ void is_ber(char *mapname, int end);
 
 void readmap(char *mapname);
 
-void mallocmap (t_map *map, char *mapline);
+void mallocmap (t_map *map);
+
 #endif

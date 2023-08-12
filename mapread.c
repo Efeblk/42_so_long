@@ -36,7 +36,7 @@ static void isallone(char *mapline)
     }  
 }
 
-static void firstlinecheck(int firstlinebool, char *mapline)
+static int firstlinecheck(int firstlinebool, char *mapline)
 {
     static int mapwidth;
     int tmpwidth;
@@ -49,6 +49,7 @@ static void firstlinecheck(int firstlinebool, char *mapline)
     tmpwidth = ft_strlen1(mapline);
     if (mapwidth != tmpwidth)
         exitor();
+    return(mapwidth);
 }
 
 void readmap(char *mapname)
@@ -57,22 +58,26 @@ void readmap(char *mapname)
     char *mapline;
     int firstlinebool;
     char *tmp_map;
+    t_map map;
 
     firstlinebool = 1;
     mapline = "tmp";
-    tmp_map = ft_calloc(sizeof(char) ,99);
     fdmap = open(mapname, O_RDONLY);
+    tmp_map = ft_calloc(1, 1);
+    mallocmap(&map);
     while (mapline != NULL)
     {
         mapline = get_next_line(fdmap);
         if (mapline == NULL)
             break;
-
-        firstlinecheck(firstlinebool, mapline);
+        map.width = firstlinecheck(firstlinebool, mapline);
         firstlinebool = 0;
         checkline(mapline);
-        printf("%s \n", tmp_map);
         tmp_map = ft_strjoin(tmp_map, mapline);
+        map.height += 1;
     }
+    printf("%s", tmp_map);
+    printf("\n%i", map.height);
+    printf("\n%i", map.width);
 }
 
