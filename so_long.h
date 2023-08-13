@@ -45,12 +45,13 @@ void bercheck (char *mapname);
 void is_ber(char *mapname, int end);
 
 void isallone(char *mapline);
-void readmap(char *mapname, int doreach, t_map *map);
-void exitcharacter(char a, int isended, t_map *map);
+void readmap(char *mapname, int doreach, t_map *map, t_game *game);
+void exitcharacter(char a, int isended, t_map *map, t_game *game);
 
-void mallocmap (t_map *map);
+t_map *mallocmap (t_map *map);
+void mallocplayer(t_game *game);
 void writetomap (t_map *map, char *tmp_map);
-char *checkmap(t_map *map, char *tmp_map, int fdmap);
+char *checkmap(t_map *map, char *tmp_map, int fdmap, t_game *game);
 void mapfree(t_map *map);
 
 int	char_counter(t_map *map, char c);

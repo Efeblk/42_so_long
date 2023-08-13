@@ -1,7 +1,7 @@
 #include "so_long.h"
 #include <stdio.h>
 
-static int charvalid(char c, t_map *map)
+static int charvalid(char c, t_map *map, t_game *game)
 {
     char *valid;
     
@@ -10,7 +10,7 @@ static int charvalid(char c, t_map *map)
     {      
         if (*valid == c)
         { 
-            exitcharacter(c, 0, map);
+            exitcharacter(c, 0, map, game);
             return (1);
         }
         valid++;
@@ -19,14 +19,14 @@ static int charvalid(char c, t_map *map)
     return(0);
 }
 
-static void checkline(char *line, t_map *map)
+static void checkline(char *line, t_map *map, t_game *game)
 {
     int last;
 
     last = ft_strlen1(line) - 1;
     if (line[0] != '1' || line[last] != '1')
         exitor();
-    while (*line && charvalid(*line, map))
+    while (*line && charvalid(*line, map, game))
         line++;
 }
 
@@ -45,7 +45,7 @@ static int firstlinecheck(int mapwidth, char *mapline, int firstlinebool)
     return(mapwidth);
 }
 
-char *checkmap(t_map *map, char *tmp_map, int fdmap)
+char *checkmap(t_map *map, char *tmp_map, int fdmap, t_game *game)
 {
     int firstlinebool;
     char *mapline;
@@ -59,14 +59,14 @@ char *checkmap(t_map *map, char *tmp_map, int fdmap)
             break;
         map->width = firstlinecheck(map->width, mapline, firstlinebool);
         firstlinebool = 0;
-        checkline(mapline, map);
+        checkline(mapline, map, game);
         tmp_map = ft_strjoin(tmp_map, mapline);
         map->height += 1;
     }
     return(tmp_map);
 }
 
-void readmap(char *mapname, int doreach, t_map *map)
+void readmap(char *mapname, int doreach, t_map *map, t_game *game)
 {
     int fdmap;
     char *tmp_map;
@@ -75,8 +75,9 @@ void readmap(char *mapname, int doreach, t_map *map)
         mapfree(map);
     fdmap = open(mapname, O_RDONLY);
     tmp_map = ft_calloc(1, 1);
-    mallocmap(map);
-    tmp_map = checkmap(map, tmp_map, fdmap);
+    map = mallocmap(map);
+    
+    tmp_map = checkmap(map, tmp_map, fdmap, game);
     writetomap(map, tmp_map);
     close(fdmap);
     if (doreach)
