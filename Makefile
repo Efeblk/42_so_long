@@ -1,5 +1,5 @@
 NAME = so_long
-SRC = main.c checkers.c utils.c mapread.c mapread_utils.c
+SRC = main.c checkers.c utils.c mapread.c mapread_utils.c is_reachable.c
 OBJ = $(SRC:.c=.o)
 
 CC = gcc

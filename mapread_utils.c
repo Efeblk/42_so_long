@@ -1,6 +1,16 @@
 #include "so_long.h"
 #include <stdio.h>
 
+void mapfree(t_map *map)
+{
+    int i;
+    i = 0;
+    while (map->map[i])
+		free(map->map[i++]);
+	free(map->map[i++]);
+	free(map->map);
+}
+
 void mallocmap (t_map *map)
 {
     map->height = 0;

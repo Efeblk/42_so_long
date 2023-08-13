@@ -45,33 +45,44 @@ static int firstlinecheck(int mapwidth, char *mapline, int firstlinebool)
     return(mapwidth);
 }
 
-void readmap(char *mapname)
+char *checkmap(t_map *map, char *tmp_map, int fdmap)
 {
-    int fdmap;
+    int firstlinebool;
     char *mapline;
-    int firstlinebool = 1;
-    char *tmp_map;
-    t_map map;
 
     mapline = "tmp";
-    fdmap = open(mapname, O_RDONLY);
-    tmp_map = ft_calloc(1, 1);
-    mallocmap(&map);
+    firstlinebool = 1;
     while (mapline != NULL)
     {
         mapline = get_next_line(fdmap);
         if (mapline == NULL)
             break;
-        map.width = firstlinecheck(map.width, mapline, firstlinebool);
+        map->width = firstlinecheck(map->width, mapline, firstlinebool);
         firstlinebool = 0;
-        checkline(mapline, &map);
+        checkline(mapline, map);
         tmp_map = ft_strjoin(tmp_map, mapline);
-        map.height += 1;
+        map->height += 1;
     }
-    writetomap(&map, tmp_map);
+    return(tmp_map);
+}
+
+void readmap(char *mapname, int doreach, t_map *map)
+{
+    int fdmap;
+    char *tmp_map;
+    
+    if(!doreach)
+        mapfree(map);
+    fdmap = open(mapname, O_RDONLY);
+    tmp_map = ft_calloc(1, 1);
+    mallocmap(map);
+    tmp_map = checkmap(map, tmp_map, fdmap);
+    writetomap(map, tmp_map);
     close(fdmap);
-    printf("%s\n", map.map[0]);
-    printf("%s\n", map.map[1]);
-    printf("%s\n", map.map[2]);
-    printf("%s", map.map[3]);
+    if (doreach)
+        is_reachable(map);
+    printf("%s\n", map->map[0]);
+    printf("%s\n", map->map[1]);
+    printf("%s\n", map->map[2]);
+    printf("%s\n", map->map[3]);
 }
