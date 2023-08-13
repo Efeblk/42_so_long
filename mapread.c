@@ -1,44 +1,37 @@
 #include "so_long.h"
 #include <stdio.h>
 
-static int charvalid(char c)
+static int charvalid(char c, t_map *map)
 {
     char *valid;
+    
     valid = "01CEP\n";
     while (*valid)
-    {
+    {      
         if (*valid == c)
+        { 
+            exitcharacter(c, 0, map);
             return (1);
+        }
         valid++;
     }
     exitor();
     return(0);
 }
 
-static void checkline(char *line)
+static void checkline(char *line, t_map *map)
 {
     int last;
 
     last = ft_strlen1(line) - 1;
     if (line[0] != '1' || line[last] != '1')
         exitor();
-    while (*line && charvalid(*line))
+    while (*line && charvalid(*line, map))
         line++;
 }
 
-static void isallone(char *mapline)
+static int firstlinecheck(int mapwidth, char *mapline, int firstlinebool)
 {
-    while (*mapline)
-    {
-        if (*mapline != '1' && *mapline != '\n')
-            exitor();
-        mapline++;
-    }  
-}
-
-static int firstlinecheck(int firstlinebool, char *mapline)
-{
-    static int mapwidth;
     int tmpwidth;
 
     if (firstlinebool)
@@ -56,11 +49,10 @@ void readmap(char *mapname)
 {
     int fdmap;
     char *mapline;
-    int firstlinebool;
+    int firstlinebool = 1;
     char *tmp_map;
     t_map map;
 
-    firstlinebool = 1;
     mapline = "tmp";
     fdmap = open(mapname, O_RDONLY);
     tmp_map = ft_calloc(1, 1);
@@ -70,14 +62,16 @@ void readmap(char *mapname)
         mapline = get_next_line(fdmap);
         if (mapline == NULL)
             break;
-        map.width = firstlinecheck(firstlinebool, mapline);
+        map.width = firstlinecheck(map.width, mapline, firstlinebool);
         firstlinebool = 0;
-        checkline(mapline);
+        checkline(mapline, &map);
         tmp_map = ft_strjoin(tmp_map, mapline);
         map.height += 1;
     }
-    printf("%s", tmp_map);
-    printf("\n%i", map.height);
-    printf("\n%i", map.width);
+    writetomap(&map, tmp_map);
+    close(fdmap);
+    printf("%s\n", map.map[0]);
+    printf("%s\n", map.map[1]);
+    printf("%s\n", map.map[2]);
+    printf("%s", map.map[3]);
 }
-
