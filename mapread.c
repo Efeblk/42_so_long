@@ -72,7 +72,7 @@ void readmap(char *mapname, int doreach, t_map *map, t_game *game)
     char *tmp_map;
     
     if(!doreach)
-        mapfree(map);
+        free(map);
     fdmap = open(mapname, O_RDONLY);
     tmp_map = ft_calloc(1, 1);
     map = mallocmap(map);
@@ -82,8 +82,4 @@ void readmap(char *mapname, int doreach, t_map *map, t_game *game)
     close(fdmap);
     if (doreach)
         is_reachable(map);
-    printf("%s\n", map->map[0]);
-    printf("%s\n", map->map[1]);
-    printf("%s\n", map->map[2]);
-    printf("%s\n", map->map[3]);
 }

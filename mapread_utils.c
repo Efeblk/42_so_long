@@ -1,16 +1,6 @@
 #include "so_long.h"
 #include <stdio.h>
 
-void mapfree(t_map *map)
-{
-    int i;
-    i = 0;
-    while (map->map[i])
-		free(map->map[i++]);
-	free(map->map[i++]);
-	free(map->map);
-}
-
 t_map *mallocmap (t_map *tmpmap)
 {
     t_map *map;
@@ -75,9 +65,6 @@ void exitcharacter(char a, int isended, t_map *map, t_game *game)
         map->p += 1;
         game->player->player_height = map->height;
     }
-    printf("%i \n", map->p);
-    printf("%i \n", map->e);
-    printf("%i \n", map->c);
     if (a == 'E')
         map->e += 1;
     if (a == 'C')
